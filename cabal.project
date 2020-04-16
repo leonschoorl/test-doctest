@@ -5,7 +5,7 @@ packages:
 package test-doctests
   tests: True
 
--- source-repository-package
---     type: git
---     location: https://github.com/leonschoorl/doctest.git
---     tag: 8aeee0a89b077d7dcb401fa1b380d9a51f94e634
+source-repository-package
+    type: git
+    location: https://github.com/leonschoorl/doctest.git
+    tag: 8aeee0a89b077d7dcb401fa1b380d9a51f94e634
