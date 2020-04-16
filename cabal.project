@@ -1,0 +1,6 @@
+packages:
+  ./test-doctests.cabal
+  ./dummy-plugin/*.cabal
+
+package test-doctests
+  tests: True

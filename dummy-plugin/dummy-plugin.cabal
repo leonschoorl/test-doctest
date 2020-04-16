@@ -1,0 +1,13 @@
+cabal-version:       >=1.10
+
+name:                dummy-plugin
+version:             0.1.0.0
+build-type:          Simple
+
+library
+  exposed-modules:     DummyPlugin
+                       DummyDefs
+  build-depends:       base,
+                       ghc
+
+  default-language:    Haskell2010
