@@ -10,4 +10,5 @@ executable test-doctest
   build-depends:
     base,
     dummy-plugin,
-    doctest
+    ghc,
+    ghc-paths
