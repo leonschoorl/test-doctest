@@ -7,18 +7,22 @@ import DynamicLoading (initializePlugins)
 import DynFlags
 import Exception (ExceptionMonad)
 import GHC
-import GHC.Paths (libdir)
+import GHC.Paths (libdir,ghc)
+import System.Process
 
 main :: IO ()
 main = void parse
 
 -- Mostly corresponds to https://github.com/sol/doctest/blob/d1b259a2e15f2b27896e01b52bc8cc07edcebc9e/src/Extract.hs
 parse :: IO [TypecheckedModule]
-parse = runGhc (Just libdir) $ do
+parse = do
+ ghcVersion:_ <- lines <$> readProcess ghc ["--numeric-version"] ""
+ putStrLn $ "Found ghc version " ++ ghcVersion
+ runGhc (Just libdir) $ do
   let modules = ["MyLib"]
 
   modifySessionDynFlags $ \flags ->
-    flags { packageEnv = Just ".ghc.environment.x86_64-linux-8.10.1" }
+    flags { packageEnv = Just $ ".ghc.environment.x86_64-linux-" ++ ghcVersion }
 
   mapM (`guessTarget` Nothing) modules >>= setTargets
   mods <- depanal [] False

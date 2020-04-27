@@ -11,4 +11,5 @@ executable test-doctest
     base,
     dummy-plugin,
     ghc,
+    process,
     ghc-paths
