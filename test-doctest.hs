@@ -17,7 +17,7 @@ main = void parse
 parse :: IO [TypecheckedModule]
 parse = do
  ghcVersion:_ <- lines <$> readProcess ghc ["--numeric-version"] ""
- putStrLn $ "Found ghc version " ++ ghcVersion
+ putStrLn $ unlines ["Using ghc binary: " ++ ghc, "Which has version: " ++ ghcVersion]
  runGhc (Just libdir) $ do
   let modules = ["MyLib"]
 
