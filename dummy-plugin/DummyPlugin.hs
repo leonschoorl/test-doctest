@@ -1,13 +1,13 @@
 module DummyPlugin (plugin) where
-import Class (Class)
-import GhcPlugins hiding (TcPlugin)
-import TcRnTypes  (TcPluginSolver)
+import GHC.Core.Class (Class)
+import GHC.Plugins hiding (TcPlugin)
+import GHC.Tc.Types  (TcPluginSolver)
+import GHC.Utils.Panic      (panicDoc)
+import GHC.Tc.Plugin  (TcPluginM, lookupOrig,tcLookupClass)
+import qualified  GHC.Tc.Plugin as TcPluginM
+import qualified  GHC.Driver.Finder as Finder
+import GHC.Tc.Types  (TcPlugin (..), TcPluginResult (..))
 
-import Panic      (panicDoc)
-import TcPluginM  (TcPluginM, lookupOrig,tcLookupClass)
-import qualified  TcPluginM
-import qualified  Finder
-import TcRnTypes  (TcPlugin (..), TcPluginResult (..))
 
 
 plugin :: Plugin

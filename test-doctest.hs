@@ -2,13 +2,16 @@
 module Main where
 import Control.Monad ((>=>), void)
 import Control.Monad.IO.Class (liftIO)
-import Digraph (flattenSCCs)
-import DynamicLoading (initializePlugins)
-import DynFlags
-import Exception (ExceptionMonad)
-import GHC
-import GHC.Paths (libdir,ghc)
 import System.Process
+
+import GHC.Paths (libdir,ghc)
+
+import GHC
+import GHC.Runtime.Loader   ( initializePlugins )
+import GHC.Utils.Exception (ExceptionMonad)
+import GHC.Data.Graph.Directed (flattenSCCs)
+import GHC.Driver.Flags
+import GHC.Driver.Session
 
 main :: IO ()
 main = void parse
