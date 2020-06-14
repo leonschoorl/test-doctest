@@ -20,12 +20,15 @@ main = void parse
 parse :: IO [TypecheckedModule]
 parse = do
  ghcVersion:_ <- lines <$> readProcess ghc ["--numeric-version"] ""
- putStrLn $ unlines ["Using ghc binary: " ++ ghc, "Which has version: " ++ ghcVersion]
+ putStrLn $ unlines ["Using ghc binary: " ++ ghc, "Which has version: " ++ ghcVersion, "Libdir: " ++ libdir]
  runGhc (Just libdir) $ do
   let modules = ["MyLib"]
+  dflags <- getSessionDynFlags
+  let dflags2 = dflags -- { packageEnv = Just $ ".ghc.environment.x86_64-linux-" ++ ghcVersion} -- , verbosity = 3 }
 
-  modifySessionDynFlags $ \flags ->
-    flags { packageEnv = Just $ ".ghc.environment.x86_64-linux-" ++ ghcVersion }
+  -- create packageFlags from .ghc.environment. file
+  dflags3 <- liftIO $ interpretPackageEnv dflags2
+  setSessionDynFlags dflags3
 
   mapM (`guessTarget` Nothing) modules >>= setTargets
   mods <- depanal [] False
